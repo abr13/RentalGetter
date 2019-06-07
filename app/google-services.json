@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "589214799984",
+    "firebase_url": "https://rentalgetter.firebaseio.com",
+    "project_id": "rentalgetter",
+    "storage_bucket": "rentalgetter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589214799984:android:45f79965892ebd89",
+        "android_client_info": {
+          "package_name": "com.abr.rentalgetter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589214799984-f1qh6eak4p1il9ql4vjvs4jqjigr48mp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abr.rentalgetter",
+            "certificate_hash": "a73a20105e690522e06f738adc4ca159ad37e9c4"
+          }
+        },
+        {
+          "client_id": "589214799984-h63nssb5csee9op7kvuavs1lvakfoofd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdYhuCepzFYWEpyh4wpHr-TloxhJJ0zAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589214799984-h63nssb5csee9op7kvuavs1lvakfoofd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
