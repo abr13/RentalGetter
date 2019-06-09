@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <EditText
+        android:id="@+id/loginPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:textAlignment="center" />
+
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginPhone"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="45dp"
+        android:text="Please Login If You Already Have An Account"
+        android:textAlignment="center"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="243dp"
+        android:text="Or Signup Below"
+        android:textAlignment="center"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text2"
+        android:layout_alignStart="@+id/loginPhone"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="-108dp"
+        android:layout_marginEnd="104dp"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textColor="#4CAF50" />
+
+
+    <EditText
+        android:id="@+id/signupPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="283dp"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:textAlignment="center" />
+
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="119dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="220dp"
+        android:text="Signup"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent" />
+
+</RelativeLayout>
