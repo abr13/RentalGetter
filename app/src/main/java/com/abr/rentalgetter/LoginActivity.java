@@ -23,7 +23,9 @@ import java.util.concurrent.TimeUnit;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText phoneNumber;
+    private EditText myCode;
     private Button loginButton;
+    private Button signupButton;
     private ProgressBar progressBar;
     private String verificationId;
     private FirebaseAuth mAuth;
@@ -52,41 +54,6 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     };
-
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-
-        phoneNumber = findViewById(R.id.loginPhone);
-        loginButton = findViewById(R.id.loginButton);
-        progressBar = findViewById(R.id.progressBar);
-
-        String n = phoneNumber.getText().toString();
-        sendVerificationCode(n);
-
-        View.OnClickListener myListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-                String code = phoneNumber.getText().toString();
-                if (code.isEmpty() || code.length() < 6) {
-                    phoneNumber.setError("Error code...");
-                    phoneNumber.requestFocus();
-                    return;
-                }
-                //progressbar Here
-                progressBar.setVisibility(View.VISIBLE);
-                verifyCode(code);
-
-                Toast.makeText(LoginActivity.this, "Please wait... ", Toast.LENGTH_SHORT).show();
-            }
-        };
-        loginButton.setOnClickListener(myListener);
-
-    }
 
     private void verifyCode(String code) {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
@@ -118,6 +85,54 @@ public class LoginActivity extends AppCompatActivity {
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacksPhoneAuthActivity.java
+
+    }
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        phoneNumber = findViewById(R.id.loginPhone);
+        loginButton = findViewById(R.id.loginButton);
+        signupButton = findViewById(R.id.signupButton);
+        myCode = findViewById(R.id.codeEditText);
+        progressBar = findViewById(R.id.progressBar);
+
+
+        String phone = phoneNumber.getText().toString();
+        //sendVerificationCode(phone);
+
+        View.OnClickListener myListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*if (code.isEmpty() || code.length() < 6) {
+                    myCode.setError("Error code...");
+                    myCode.requestFocus();
+                    return;
+                }*/
+                //progressbar Here
+                progressBar.setVisibility(View.VISIBLE);
+                String phone = phoneNumber.getText().toString();
+                sendVerificationCode(phone);
+
+                Toast.makeText(LoginActivity.this, "Please wait... ", Toast.LENGTH_SHORT).show();
+            }
+        };
+        loginButton.setOnClickListener(myListener);
+
+        View.OnClickListener myListener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String code = myCode.getText().toString();
+                verifyCode(code);
+            }
+        };
+        signupButton.setOnClickListener(myListener2);
+
 
     }
 }

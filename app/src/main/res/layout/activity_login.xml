@@ -20,6 +20,16 @@
         android:inputType="phone"
         android:textAlignment="center" />
 
+    <EditText
+        android:id="@+id/codeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="293dp"
+        android:hint="Code"
+        android:textAlignment="center" />
+
 
     <TextView
         android:id="@+id/text1"
@@ -58,7 +68,7 @@
         android:layout_marginStart="92dp"
         android:layout_marginTop="-108dp"
         android:layout_marginEnd="104dp"
-        android:text="Login"
+        android:text="Send code"
         android:textAlignment="center"
         android:textColor="#4CAF50" />
 
@@ -89,7 +99,7 @@
         android:layout_marginStart="119dp"
         android:layout_marginEnd="102dp"
         android:layout_marginBottom="220dp"
-        android:text="Signup"
+        android:text="Verify"
         android:textAlignment="center"
         android:textColor="@color/colorAccent" />
 
