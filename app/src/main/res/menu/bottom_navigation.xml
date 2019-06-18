@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_SavedHotels"
+        android:icon="@drawable/ic_favorite_border_black_24dp"
+        android:title="Saved Hotels" />
+
+    <item
+        android:id="@+id/navigation_Bookings"
+        android:icon="@drawable/ic_bookmark_border_black_24dp"
+        android:title="Bookings" />
+    <item
+        android:id="@+id/navigation_Account"
+        android:icon="@drawable/ic_account_box_black_24dp"
+        android:title="Account" />
+
+</menu>
