@@ -7,28 +7,35 @@
 
     <EditText
         android:id="@+id/loginPhone"
-        android:layout_width="match_parent"
+        android:layout_width="142dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="133dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="25dp"
-        android:hint="Phone Number"
+        android:layout_marginEnd="133dp"
+        android:hint="PhoneWithCountryCode"
         android:inputType="phone"
-        android:textAlignment="center" />
+        android:maxLength="13"
+        android:shadowColor="#673AB7"
+        android:textAlignment="center"
+        tools:text="+919748226049" />
 
     <EditText
         android:id="@+id/codeEditText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="293dp"
+        android:layout_below="@+id/text2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="150dp"
+        android:inputType="number"
         android:hint="Code"
-        android:textAlignment="center" />
+        android:maxLength="6"
+        android:textAlignment="center"
+        tools:text="666666" />
 
 
     <TextView
@@ -39,66 +46,49 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="45dp"
-        android:text="Please Login If You Already Have An Account"
+        android:text="Please Verify By Entering Phone Number Above"
         android:textAlignment="center"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/text2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/sendCodeButton"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="243dp"
-        android:text="Or Signup Below"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="15dp"
+        android:text="Press Verify Button Below If Auto Detection Fails!"
         android:textAlignment="center"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <Button
-        android:id="@+id/loginButton"
-        android:layout_width="190dp"
+        android:id="@+id/sendCodeButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text2"
-        android:layout_alignStart="@+id/loginPhone"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="-108dp"
-        android:layout_marginEnd="104dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="161dp"
         android:text="Send code"
         android:textAlignment="center"
         android:textColor="#4CAF50" />
 
 
-    <EditText
-        android:id="@+id/signupPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="283dp"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        android:textAlignment="center" />
-
-
     <Button
-        android:id="@+id/signupButton"
+        android:id="@+id/verifyButton"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/codeEditText"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="119dp"
-        android:layout_marginEnd="102dp"
-        android:layout_marginBottom="220dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="112dp"
         android:text="Verify"
         android:textAlignment="center"
         android:textColor="@color/colorAccent" />
@@ -111,9 +101,21 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="189dp"
-        android:layout_marginEnd="174dp"
-        android:layout_marginBottom="58dp"
+        android:layout_marginStart="186dp"
+        android:layout_marginEnd="184dp"
+        android:layout_marginBottom="166dp"
         android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/registrationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="226dp"
+        android:text="Registration" />
 
 </RelativeLayout>

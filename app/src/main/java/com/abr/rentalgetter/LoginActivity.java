@@ -17,6 +17,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,19 +29,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText phoneNumber;
     private EditText myCode;
-    private Button loginButton;
-    private Button signupButton;
+    private Button sendCodeButton, verifyButton, registrationButton;
     private ProgressBar progressBar;
     private String verificationId;
     private FirebaseAuth mAuth;
+    private boolean isUserRegistered;
+
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
             String code = phoneAuthCredential.getSmsCode();
             if (code != null) {
-                //progressBar Here
-                progressBar.setVisibility(View.VISIBLE);
+                myCode.setText(code);
                 verifyCode(code);
             }
         }
@@ -50,8 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(LoginActivity.this, "Verification faild! " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -66,13 +70,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, FirstActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
 
                         } else {
                             Toast.makeText(LoginActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
@@ -88,51 +91,116 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //Check on start in user is already logged in, then directly open first activity
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            Intent intent = new Intent(LoginActivity.this, FirstActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         phoneNumber = findViewById(R.id.loginPhone);
-        loginButton = findViewById(R.id.loginButton);
-        signupButton = findViewById(R.id.signupButton);
+        sendCodeButton = findViewById(R.id.sendCodeButton);
+        verifyButton = findViewById(R.id.verifyButton);
         myCode = findViewById(R.id.codeEditText);
         progressBar = findViewById(R.id.progressBar);
+        registrationButton = findViewById(R.id.registrationButton);
 
-
-        String phone = phoneNumber.getText().toString();
-        //sendVerificationCode(phone);
-
-        View.OnClickListener myListener = new View.OnClickListener() {
+        sendCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*if (code.isEmpty() || code.length() < 6) {
-                    myCode.setError("Error code...");
-                    myCode.requestFocus();
+                final String phone = phoneNumber.getText().toString();
+                if (phone.isEmpty() || phone.length() < 13) {
+                    phoneNumber.setError("Enter phone number");
+                    phoneNumber.requestFocus();
                     return;
-                }*/
-                //progressbar Here
-                progressBar.setVisibility(View.VISIBLE);
-                String phone = phoneNumber.getText().toString();
-                sendVerificationCode(phone);
+                }
+                DatabaseReference databaseReference;
 
-                Toast.makeText(LoginActivity.this, "Please wait... ", Toast.LENGTH_SHORT).show();
+                databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+                databaseReference.orderByChild("phone").equalTo(phone).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        isUserRegistered = false;
+
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                            String dbphone = ds.child("PhoneNumber").getValue().toString();
+
+                            if (phone.equals(dbphone)) {
+
+                                isUserRegistered = true;
+                                break;
+
+                            }
+
+                        }
+                        if (isUserRegistered) {
+
+                            Toast.makeText(getApplicationContext(), "User is already registered, Try ONE-TAP LOGIN", Toast.LENGTH_LONG).show();
+
+                            sendVerificationCode(phone);
+                            progressBar.setVisibility(View.VISIBLE);
+                            Toast.makeText(LoginActivity.this, "Please wait... ", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            //new activity for registration
+//                            Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            intent.putExtra(EXTRA_MESSAGE, message);
+//                            intent.putExtra("number",PhoneNumber);
+//                            intent.putExtra("countryCodeMobNumber",fullNumber);
+//                            intent.putExtra("verificationIdSent",phoneVerificationId);
+//                            intent.putExtra("reSendToken",resendingToken);
+//                            startActivity(intent);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(LoginActivity.this, "DB ERROR", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
             }
-        };
-        loginButton.setOnClickListener(myListener);
+        });
 
         View.OnClickListener myListener2 = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = myCode.getText().toString();
+
+                final String code = myCode.getText().toString();
+                if (code.isEmpty()) {
+                    myCode.setError("Enter OTP");
+                    myCode.requestFocus();
+                    return;
+                }
                 verifyCode(code);
             }
         };
-        signupButton.setOnClickListener(myListener2);
+        verifyButton.setOnClickListener(myListener2);
 
 
+        registrationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 }
